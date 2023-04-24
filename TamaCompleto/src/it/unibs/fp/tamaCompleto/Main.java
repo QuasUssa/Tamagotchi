@@ -30,7 +30,6 @@ public class Main {
 	public static void main (String args[]) {
 		
 		System.out.println(MESSAGGIO_SALUTO);
-		
 		Tamagotchi tama = IOUtil.creaTamagotchi();
 		MyMenu menu = new MyMenu(OPZIONI_MENU, SCELTA_AZIONE);
 		
