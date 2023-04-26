@@ -1,8 +1,7 @@
 package it.unibs.fp.tamaCompleto;
 
-import it.unibs.fp.mylib.InputDati;
-import it.unibs.fp.mylib.MyMenu;
-import it.unibs.fp.mylib.NumeriCasuali;
+import it.unibs.fp.myUtil.*;
+import it.unibs.fp.mylib.*;
 
 /**
  * La classe Main contiene il main del programma. 
@@ -16,6 +15,9 @@ public class Main {
 	
 	private final static String MESSAGGIO_SALUTO = "\nBenvenuto nel fantastico mondo dei Tamagotchi! ";
 	private final static String MESSAGGIO_ARRIVEDERCI = "Arrivederci! ";
+	
+	private static final String MESSAGGIO_NUM_BISCOTTI = "Al tama sono stati dati %d biscotti";
+	private static final String MESSAGGIO_NUM_CAREZZE = "Al tama sono state date %d carezze";
 	
 	private static final String OPZIONI_MENU = "Opzioni Tamagotchi: ";
 	
@@ -42,11 +44,16 @@ public class Main {
 			switch (scelta) {
 			
 				case 1: 
-					tama.riceviBiscotti(NumeriCasuali.estraiIntero(1, 5));
+					int numBiscotti = NumeriCasuali.estraiIntero(1, 5);
+					System.out.printf(MESSAGGIO_NUM_BISCOTTI,numBiscotti);
+					tama.riceviBiscotti(numBiscotti);
+					
 					break;
 					
 				case 2: 
-					tama.riceviCarezze(NumeriCasuali.estraiIntero(1, 5));
+					int numCarezze = NumeriCasuali.estraiIntero(1, 5);
+					System.out.printf(MESSAGGIO_NUM_CAREZZE,numCarezze);
+					tama.riceviCarezze(numCarezze);
 					break;
 					
 				case 0:
@@ -60,7 +67,7 @@ public class Main {
 			
 			System.out.println(tama.toString());
 			
-			if (tama.isDead())
+			if (tama.sonoMorto())
 				finito = true;
 		}
 		while (!finito);

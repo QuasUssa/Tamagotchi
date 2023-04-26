@@ -2,7 +2,7 @@ package it.unibs.fp.tamaCompleto;
 
 /**
  * La classe Tamagotchi gestisce i dati di un Tamagotchi mettendo
- * a disposizione i metodi per l'interazione con il proprio.
+ * a disposizione i metodi per l'interazione con un'istanza di esso.
  * 
  * @author G.Bossini, F.Donati, Q.Hussain
  */
@@ -11,13 +11,13 @@ public class Tamagotchi {
 	private static final int MIN_SAZIETA = 0;
 	private static final int MAX_SAZIETA = 100;
 	
-	private static final int MIN_SAZIETA_FELICE = 30;
-	private static final int MAX_SAZIETA_FELICE = 90;
+	public static final int MIN_SAZIETA_FELICE = 30;
+	public static final int MAX_SAZIETA_FELICE = 90;
 	
 	private static final int MIN_AFFETTO = 0;
-	private static final int MAX_AFFETTO = 100;
+	public static final int MAX_AFFETTO = 100;
 	
-	private static final int MIN_AFFETTO_FELICE = 30;
+	public static final int MIN_AFFETTO_FELICE = 30;
 	
 	private static final String MESSAGGIO_FELICE = "\nIl tuo Tamagotchi è felice :) ";
 	private static final String MESSAGGIO_TRISTE = "\nIl tuo Tamagotchi è triste :( ";
@@ -29,6 +29,10 @@ public class Tamagotchi {
 	private static final double FATTORE_BISCOTTI = 1.10;
 	private static final int FATTORE_CAREZZE = 2;
 	private static final int FATTORE_BISCOTTI_AFFETTO = 4;
+	
+	private static final String MESSAGGIO_OUT_NOME_TAMAGOTCHI = "%nTamagotchi: %s";
+	private static final String MESSAGGIO_OUT_LIVELLO_AFFETTO = "Livello di affetto: %.2f%n";
+	private static final String MESSAGGIO_OUT_LIVELLO_SAZIETA = "%n%nLivello di sazietà: %.2f%n";
 	
 	private double affetto;
 	private double sazieta;
@@ -123,7 +127,7 @@ public class Tamagotchi {
 	/**
 	 * @return True, se il Tamagotchi soddisfa le condizioni di felicità.
 	 */
-	public boolean isHappy () {
+	public boolean sonoFelice () {
 		
 		return ((sazieta >= MIN_SAZIETA_FELICE && sazieta <= MAX_SAZIETA_FELICE) && affetto >= MIN_AFFETTO_FELICE);
 	}
@@ -131,7 +135,7 @@ public class Tamagotchi {
 	/**
 	 * @return True, se il Tamagotchi soddisfa le condizioni di tristezza.
 	 */
-	public boolean isSad () {
+	public boolean sonoTriste () {
 		
 		return ((sazieta < MIN_SAZIETA_FELICE || sazieta > MAX_SAZIETA_FELICE) || affetto < MIN_AFFETTO_FELICE);
 	}
@@ -139,7 +143,7 @@ public class Tamagotchi {
 	/**
 	 * @return True, se il Tamagotchi soddisfa le condizioni di morte.
 	 */
-	public boolean isDead () {
+	public boolean sonoMorto () {
 		
 		return ((affetto == MIN_AFFETTO || sazieta == MIN_SAZIETA) || sazieta == 100);
 	}
@@ -151,20 +155,20 @@ public class Tamagotchi {
 		
 		StringBuffer risultato = new StringBuffer();
 		
-		risultato.append("\nTamagotchi: " +nome);
-		risultato.append(String.format("\n%nLivello di sazietà: %.2f%n", sazieta));
-		risultato.append(String.format("Livello di affetto: %.2f%n", affetto));
+		risultato.append(String.format(MESSAGGIO_OUT_NOME_TAMAGOTCHI, nome));
+		risultato.append(String.format(MESSAGGIO_OUT_LIVELLO_SAZIETA, sazieta));
+		risultato.append(String.format(MESSAGGIO_OUT_LIVELLO_AFFETTO, affetto));
 		
-		if (isDead()) {
+		if (sonoMorto()) {
 		
 			risultato.append(MESSAGGIO_MORTE);
 		}
 		else {
 			
-			if (isSad())
+			if (sonoTriste())
 				risultato.append(MESSAGGIO_TRISTE);
 			
-			if (isHappy())
+			if (sonoFelice())
 				risultato.append(MESSAGGIO_FELICE);
 		}
 		
